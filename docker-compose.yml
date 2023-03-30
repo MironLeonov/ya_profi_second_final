@@ -1,0 +1,18 @@
+version: "3"
+services:
+  app:
+    container_name: app
+    build: .
+    ports:
+       - "8080:8080"
+    depends_on:
+      - db
+    restart: on-failure:10
+  db:
+    image: bitnami/postgresql
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
